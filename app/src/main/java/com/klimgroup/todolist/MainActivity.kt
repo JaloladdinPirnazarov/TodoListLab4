@@ -1,12 +1,14 @@
 package com.klimgroup.todolist
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.klimgroup.todolist.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TaskItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskViewModel: TaskViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,15 +19,28 @@ class MainActivity : AppCompatActivity() {
         taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
 
         binding.newTaskBtn.setOnClickListener {
-            NewTaskSheet().show(supportFragmentManager,"newTaskSheet")
+            NewTaskSheet(null).show(supportFragmentManager,"newTaskSheet")
         }
+        setRecyclerView()
+    }
 
-        taskViewModel.name.observe(this){
-            binding.tvTaskName.text = String.format("Task Name: %s",it)
-        }
-
-        taskViewModel.desc.observe(this){
-            binding.tvDesc.text = String.format("Task Desc: %s",it)
+    private fun setRecyclerView(){
+        val mainActivity = this
+        taskViewModel.taskItems.observe(this){
+            binding.todoListRecyclerView.apply {
+                layoutManager = LinearLayoutManager(applicationContext)
+                adapter = TaskItemAdapter(it,mainActivity)
+            }
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun completeTaskItem(taskItem: TaskItem) {
+        taskViewModel.setCompleted(taskItem)
+    }
+
+    override fun editTaskItem(taskItem: TaskItem) {
+        NewTaskSheet(taskItem).show(supportFragmentManager,"newTaskSheet")
+    }
+
 }
