@@ -22,12 +22,13 @@ class NewTaskSheet(var taskItem:TaskItem?) : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity()
+        val dueTimeString =
         if (taskItem != null){
             binding.tvTaskTitle.text = "Edit Task"
             binding.edName.setText(taskItem!!.name)
             binding.edDesc.setText(taskItem!!.desc)
-            if (taskItem!!.dueTime != null){
-                dueTime = taskItem!!.dueTime!!
+            if (taskItem!!.dueTime() != null){
+                dueTime = taskItem!!.dueTime()!!
                 updateTimeButtonText()
             }
         }else{
@@ -69,11 +70,12 @@ class NewTaskSheet(var taskItem:TaskItem?) : BottomSheetDialogFragment() {
         binding.apply {
             val name = edName.text.toString()
             val desc = edDesc.text.toString()
+            val dueTimeString = if (dueTime == null) null else TaskItem.timeFormatter.format(dueTime)
             if (taskItem == null){
-                val newTask = TaskItem(name,desc,dueTime,null)
+                val newTask = TaskItem(name,desc,dueTimeString,null)
                 taskViewModel.addTaskItem(newTask)
             }else{
-                taskViewModel.updateTaskItem(taskItem!!.id,name,desc,dueTime)
+                taskViewModel.updateTaskItem(taskItem!!.id)
             }
             edName.setText("")
             edDesc.setText("")
