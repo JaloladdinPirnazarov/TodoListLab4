@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".NewTaskSheet">
+    tools:context=".TaskSheet">
 
     <TextView
-        android:id="@+id/tvTaskTitle"
+        android:id="@+id/tvState"
         style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:text="TextView"
+        android:text="New Task"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,18 +25,16 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-
         android:layout_marginTop="10dp"
-        android:hint="Name"
-        app:layout_constraintEnd_toEndOf="@+id/tvTaskTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTaskTitle">
+        android:hint="Title"
+        app:layout_constraintEnd_toEndOf="@+id/tvState"
+        app:layout_constraintStart_toStartOf="@+id/tvState"
+        app:layout_constraintTop_toBottomOf="@+id/tvState">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edName"
+            android:id="@+id/edTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -45,11 +42,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:hint="Description"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -59,14 +55,24 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/timePickerButton"
+        android:id="@+id/btnSetStartTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Select time"
+        android:text="set start time"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+
+    <Button
+        android:id="@+id/btnSetEndTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="set end time"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetStartTime" />
 
     <Button
         android:id="@+id/btnSave"
@@ -74,11 +80,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/purple_500"
-        android:text="Save"
+        android:text="save"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/timePickerButton" />
-
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSetStartTime"
+        app:layout_constraintStart_toStartOf="@+id/btnSetStartTime"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetEndTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
